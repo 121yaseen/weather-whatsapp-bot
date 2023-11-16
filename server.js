@@ -11,6 +11,10 @@ const port = 3000;
 
 app.use(bodyParser.urlencoded({ extended: true }));
 
+app.get("/", (req, res) => {
+  res.send("Hey, welcome to the weather bot");
+});
+
 app.post("/webhook", async (req, res) => {
   const userMessage = req.body.Body;
   const senderNumber = req.body.From;
@@ -71,5 +75,5 @@ function sendWhatsAppMessage(to, body) {
 }
 
 app.listen(port, () => {
-  console.log(`Server is runnin g on http://localhost:${port}`);
+  console.log(`Server is running on http://localhost:${port}`);
 });
