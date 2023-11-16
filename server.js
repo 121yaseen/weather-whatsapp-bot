@@ -11,10 +11,10 @@ const port = 3000;
 
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.post("/webhook", twilio.webhook(), async (req, res) => {
+app.post("/webhook", async (req, res) => {
   const userMessage = req.body.Body;
   const senderNumber = req.body.From;
-
+  console.log(senderNumber);
   try {
     const weatherData = await getWeather(userMessage);
 
@@ -64,12 +64,12 @@ function sendWhatsAppMessage(to, body) {
     .create({
       body: body,
       from: `whatsapp:${twilioNumber}`,
-      to: `whatsapp:${to}`,
+      to: `${to}`,
     })
     .then((message) => console.log("Message sent:", message.sid))
     .catch((error) => console.error("Error sending message:", error.message));
 }
 
 app.listen(port, () => {
-  console.log(`Server is running on http://localhost:${port}`);
+  console.log(`Server is runnin g on http://localhost:${port}`);
 });
